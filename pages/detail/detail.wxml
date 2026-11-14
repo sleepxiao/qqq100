@@ -1,0 +1,108 @@
+<view class="page">
+    <view class="state" wx:if="{{viewState === 'loading'}}">
+        <view class="spinner"></view>
+        <text class="state-desc">正在读取额度记录…</text>
+    </view>
+
+    <view class="state" wx:elif="{{viewState === 'error'}}">
+        <text class="state-icon">!</text>
+        <text class="state-title">加载失败</text>
+        <text class="state-desc">{{errorText}}</text>
+        <button class="btn" bindtap="handleRetry">重新加载</button>
+    </view>
+
+    <view class="state" wx:elif="{{viewState === 'empty'}}">
+        <text class="state-icon">○</text>
+        <text class="state-title">暂无记录</text>
+        <text class="state-desc">{{errorText}}</text>
+    </view>
+
+    <block wx:else>
+        <view class="hero">
+            <view class="hero-head">
+                <view class="hero-name">
+                    <text class="name">{{title}}</text>
+                    <text class="sub">{{company}}</text>
+                </view>
+                <text class="share" wx:if="{{share}}">{{share}}</text>
+            </view>
+
+            <view class="chans">
+                <view class="chan">
+                    <text class="chan-name">天天基金</text>
+                    <view class="chan-amount">
+                        <text class="chan-sym" wx:if="{{tt.hasAmount}}">{{symbol}}</text>
+                        <text class="chan-num {{tt.tone}}">{{tt.label}}</text>
+                    </view>
+                    <text class="chan-cap">{{tt.unit}}</text>
+                </view>
+
+                <view class="chan-line"></view>
+
+                <view class="chan">
+                    <text class="chan-name">支付宝</text>
+                    <view class="chan-amount">
+                        <text class="chan-sym" wx:if="{{ali.hasAmount}}">{{symbol}}</text>
+                        <text class="chan-num {{ali.tone}}">{{ali.label}}</text>
+                    </view>
+                    <text class="chan-cap">{{ali.unit}}</text>
+                </view>
+            </view>
+
+            <text class="change {{changeTone}}" wx:if="{{changeText}}">{{changeText}}</text>
+        </view>
+
+        <view class="card">
+            <view class="card-head">
+                <text class="card-title">额度变化</text>
+                <text class="card-hint">近 {{recordCount}} 次记录</text>
+            </view>
+
+            <view class="chart" wx:if="{{hasHistory}}">
+                <view class="bar-slot" wx:for="{{history}}" wx:key="date">
+                    <view class="bar {{item.active ? 'active' : ''}} {{item.suspended ? 'off' : ''}}" style="height: {{item.h}}%"></view>
+                </view>
+            </view>
+            <view class="chart-empty" wx:else>
+                <text>目前只有一条记录，明天起就能看到额度变化了。</text>
+            </view>
+
+            <view class="axis" wx:if="{{hasHistory}}">
+                <text>{{axisStart}}</text>
+                <text>{{axisEnd}}</text>
+            </view>
+        </view>
+
+        <view class="card">
+            <view class="row" bindtap="copyCode">
+                <text class="k">基金代码</text>
+                <view class="v-wrap">
+                    <text class="v">{{code}}</text>
+                    <text class="copy">复制</text>
+                </view>
+            </view>
+            <view class="row">
+                <text class="k">单位净值</text>
+                <text class="v">{{nav}}</text>
+            </view>
+            <view class="row">
+                <text class="k">起购金额</text>
+                <text class="v">{{minAmount}} 元</text>
+            </view>
+            <view class="row">
+                <text class="k">数据日期</text>
+                <text class="v">{{tradeDate}}</text>
+            </view>
+            <view class="row col">
+                <text class="k">天天基金状态</text>
+                <text class="v raw">{{rawStatus}}</text>
+            </view>
+            <view class="row col">
+                <text class="k">支付宝状态</text>
+                <text class="v raw">{{aliRaw}}</text>
+            </view>
+        </view>
+
+        <text class="foot-note">额度为基金公司按「每个基金账户」规定的单日申购上限，两个渠道数值一致；能否买入取决于该渠道当日的销售状态。数据每个交易日中午同步，实际以购买页面显示为准，不构成投资建议。</text>
+    </block>
+</view>

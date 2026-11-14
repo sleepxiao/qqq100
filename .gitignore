@@ -1,0 +1,14 @@
+# 依赖
+node_modules/
+package-lock.json.bak
+
+# 抓取中间产物（发布用的副本在 data/，需要提交）
+scripts/out/
+
+# 本地/工具
+.workbuddy/
+*.log
+.DS_Store
+Thumbs.db
+__pycache__/
+*.pyc

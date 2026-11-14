@@ -1,0 +1,147 @@
+<view class="page">
+    <view class="hero">
+        <view class="hero-head">
+            <text class="hero-kicker">场外 QDII · 申购额度</text>
+            <view class="hero-right">
+                <text class="hero-date">{{dateText}}</text>
+                <view class="refresh {{refreshing ? 'on' : ''}}" bindtap="handleRefresh" hover-class="refresh-hover" hover-stay-time="60">
+                    <text class="refresh-icon">↻</text>
+                </view>
+            </view>
+        </view>
+
+        <view class="metric">
+            <text class="metric-symbol">{{currencySymbol}}</text>
+            <text class="metric-num">{{stats.totalQuota}}</text>
+        </view>
+        <text class="metric-cap">{{channelName}} · 单日全部申购合计额度</text>
+        <text class="metric-note" wx:if="{{stats.funds > 0}}">按基金去重，A/C 等份额合并计一次 · 共 {{stats.funds}} 只</text>
+        <text class="metric-note" wx:if="{{stats.unlimited > 0}}">另有 {{stats.unlimited}} 只不限额度，未计入合计</text>
+
+        <view class="idx {{index.dir}}" wx:if="{{index}}">
+            <view class="idx-l">
+                <text class="idx-name">{{index.name}}</text>
+                <text class="idx-date">{{index.date}} 收盘</text>
+            </view>
+            <view class="idx-r">
+                <text class="idx-point">{{index.closeText}}</text>
+                <text class="idx-pct">{{index.arrow}} {{index.pctText}}</text>
+            </view>
+        </view>
+
+        <view class="hero-stats">
+            <view class="hs">
+                <text class="hs-num">{{stats.buyable}}</text>
+                <text class="hs-cap">可买份额</text>
+            </view>
+            <view class="hs-line"></view>
+            <view class="hs">
+                <text class="hs-num">{{stats.blocked}}</text>
+                <text class="hs-cap">暂停/封闭</text>
+            </view>
+            <view class="hs-line"></view>
+            <view class="hs">
+                <text class="hs-num">{{stats.avgQuota}}</text>
+                <text class="hs-cap">平均额度</text>
+            </view>
+        </view>
+
+        <view class="trend">
+            <image class="trend-img" src="/assets/trend-42y.png" mode="widthFix" />
+            <view class="trend-foot">
+                <text class="trend-year">1985</text>
+                <text class="trend-desc">成立以来 · 月线 · 对数刻度</text>
+                <text class="trend-year">2026</text>
+            </view>
+        </view>
+
+        <text class="hero-foot">{{updateNote}}</text>
+    </view>
+
+    <view class="stale" wx:if="{{stale}}">
+        <text class="stale-dot"></text>
+        <text class="stale-text">最新数据为 {{dateText}}，今日尚未同步。点右上角刷新可重试，或等待 12:00 定时任务。</text>
+    </view>
+
+    <view class="channels">
+        <view class="ch {{channel === 'tt' ? 'on' : ''}}" data-ch="tt" bindtap="onChannel">
+            <text class="ch-name">天天基金</text>
+            <text class="ch-num">{{counts.tt}} 只可买</text>
+        </view>
+        <view class="ch {{channel === 'ali' ? 'on' : ''}}" data-ch="ali" bindtap="onChannel">
+            <text class="ch-name">支付宝</text>
+            <text class="ch-num">{{counts.ali}} 只可买</text>
+        </view>
+    </view>
+
+    <view class="toolbar">
+        <view class="seg">
+            <view class="seg-item {{currency === 'CNY' ? 'on' : ''}}" data-cur="CNY" bindtap="onCurrency">人民币</view>
+            <view class="seg-item {{currency === 'USD' ? 'on' : ''}}" data-cur="USD" bindtap="onCurrency">美元</view>
+        </view>
+        <view class="toggle {{onlyBuyable ? 'on' : ''}}" bindtap="toggleBuyable">
+            <text>只看可申购</text>
+        </view>
+    </view>
+
+    <view class="state" wx:if="{{viewState === 'loading'}}">
+        <view class="spinner"></view>
+        <text class="state-desc">正在读取最新额度…</text>
+    </view>
+
+    <view class="state" wx:elif="{{viewState === 'error'}}">
+        <text class="state-icon danger">!</text>
+        <text class="state-title">加载失败</text>
+        <text class="state-desc">{{errorText}}</text>
+        <button class="btn" bindtap="handleRetry">重新加载</button>
+    </view>
+
+    <view class="state" wx:elif="{{viewState === 'empty'}}">
+        <text class="state-icon">○</text>
+        <text class="state-title">暂无数据</text>
+        <text class="state-desc">{{emptyHint}}</text>
+        <button class="btn ghost" bindtap="handleRetry">刷新看看</button>
+    </view>
+
+    <view class="list" wx:else>
+        <view class="state" wx:if="{{items.length === 0}}">
+            <text class="state-title">没有匹配的基金</text>
+            <text class="state-desc">{{emptyHint}}</text>
+        </view>
+
+        <block wx:else>
+            <view
+                class="row {{item.tone}}"
+                wx:for="{{items}}"
+                wx:key="code"
+                data-code="{{item.code}}"
+                data-name="{{item.name}}"
+                bindtap="openDetail"
+                hover-class="row-hover"
+                hover-stay-time="80"
+            >
+                <view class="row-body">
+                    <view class="row-line">
+                        <text class="row-title">{{item.title}}</text>
+                        <text class="share" wx:if="{{item.share}}">{{item.share}}</text>
+                    </view>
+                    <view class="row-sub-line">
+                        <text class="row-sub">{{item.company}} · {{item.statusLabel}}</text>
+                        <text class="diff" wx:if="{{item.hasDiff}}">{{item.diffText}}</text>
+                    </view>
+                </view>
+                <view class="row-value">
+                    <view class="val-line">
+                        <text class="val-sym" wx:if="{{item.hasAmount}}">{{item.symbol}}</text>
+                        <text class="val">{{item.quotaLabel}}</text>
+                    </view>
+                    <text class="val-cap">{{item.quotaUnit}}</text>
+                </view>
+            </view>
+
+            <view class="list-end">
+                <text>共 {{items.length}} 只 · {{channelName}}额度</text>
+            </view>
+        </block>
+    </view>
+</view>

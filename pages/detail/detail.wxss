@@ -1,0 +1,337 @@
+.page {
+    box-sizing: border-box;
+    min-height: 100vh;
+    padding: 24rpx 28rpx 64rpx;
+    background: #f2f4f7;
+}
+
+/* ---------------- 头部 ---------------- */
+.hero {
+    position: relative;
+    box-sizing: border-box;
+    padding: 36rpx 36rpx 32rpx;
+    border-radius: 32rpx;
+    background: linear-gradient(152deg, #121a2b 0%, #1d2839 52%, #26344a 100%);
+    box-shadow: 0 16rpx 40rpx rgba(18, 26, 43, 0.24);
+}
+
+.hero-head {
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+}
+
+.hero-name {
+    display: flex;
+    flex: 1;
+    min-width: 0;
+    flex-direction: column;
+}
+
+.name {
+    color: #ffffff;
+    font-size: 32rpx;
+    font-weight: 600;
+    line-height: 1.4;
+}
+
+.sub {
+    margin-top: 8rpx;
+    color: rgba(255, 255, 255, 0.48);
+    font-size: 22rpx;
+}
+
+.share {
+    margin-left: 16rpx;
+    padding: 4rpx 14rpx;
+    border-radius: 8rpx;
+    background: rgba(255, 255, 255, 0.12);
+    color: rgba(255, 255, 255, 0.8);
+    font-size: 20rpx;
+    font-weight: 600;
+    flex-shrink: 0;
+}
+
+/* ---------------- 双渠道额度 ---------------- */
+.chans {
+    display: flex;
+    align-items: stretch;
+    margin-top: 30rpx;
+    padding-top: 26rpx;
+    border-top: 2rpx solid rgba(255, 255, 255, 0.08);
+}
+
+.chan {
+    display: flex;
+    flex: 1;
+    flex-direction: column;
+}
+
+.chan-line {
+    width: 2rpx;
+    margin: 6rpx 26rpx;
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.chan-name {
+    color: rgba(255, 255, 255, 0.5);
+    font-size: 21rpx;
+    letter-spacing: 1rpx;
+}
+
+.chan-amount {
+    display: flex;
+    align-items: baseline;
+    margin-top: 10rpx;
+}
+
+.chan-sym {
+    margin-right: 2rpx;
+    color: rgba(255, 255, 255, 0.55);
+    font-size: 24rpx;
+    font-weight: 600;
+}
+
+.chan-num {
+    color: #ffffff;
+    font-size: 52rpx;
+    font-weight: 700;
+    line-height: 1.1;
+    letter-spacing: -1rpx;
+}
+
+.chan-num.good {
+    color: #86efac;
+}
+
+.chan-num.mid {
+    color: #93c5fd;
+}
+
+.chan-num.low {
+    color: #fcd34d;
+}
+
+.chan-num.muted {
+    color: rgba(255, 255, 255, 0.45);
+    font-size: 38rpx;
+}
+
+.chan-cap {
+    margin-top: 8rpx;
+    color: rgba(255, 255, 255, 0.4);
+    font-size: 21rpx;
+}
+
+.change {
+    display: inline-block;
+    margin-top: 22rpx;
+    padding: 8rpx 20rpx;
+    border-radius: 999rpx;
+    background: rgba(255, 255, 255, 0.08);
+    color: rgba(255, 255, 255, 0.6);
+    font-size: 22rpx;
+}
+
+.change.up {
+    background: rgba(22, 163, 74, 0.18);
+    color: #86efac;
+}
+
+.change.down {
+    background: rgba(239, 68, 68, 0.16);
+    color: #fca5a5;
+}
+
+/* ---------------- 卡片 ---------------- */
+.card {
+    box-sizing: border-box;
+    margin-top: 20rpx;
+    padding: 30rpx 30rpx 24rpx;
+    border-radius: 26rpx;
+    background: #ffffff;
+    box-shadow: 0 2rpx 10rpx rgba(15, 23, 42, 0.04);
+}
+
+.card-head {
+    display: flex;
+    align-items: baseline;
+    justify-content: space-between;
+}
+
+.card-title {
+    color: #0f172a;
+    font-size: 28rpx;
+    font-weight: 600;
+}
+
+.card-hint {
+    color: #a8b3c4;
+    font-size: 21rpx;
+}
+
+/* ---------------- 柱状图 ---------------- */
+.chart {
+    display: flex;
+    height: 260rpx;
+    margin-top: 28rpx;
+    align-items: flex-end;
+}
+
+.bar-slot {
+    display: flex;
+    flex: 1;
+    height: 100%;
+    align-items: flex-end;
+    padding: 0 3rpx;
+}
+
+.bar {
+    width: 100%;
+    border-radius: 8rpx 8rpx 4rpx 4rpx;
+    background: #c7d7ee;
+}
+
+.bar.active {
+    background: #16a34a;
+}
+
+.bar.off {
+    background: #e2e8f0;
+}
+
+.chart-empty {
+    margin-top: 32rpx;
+    padding: 40rpx 0;
+    color: #a8b3c4;
+    font-size: 23rpx;
+    text-align: center;
+}
+
+.axis {
+    display: flex;
+    margin-top: 14rpx;
+    color: #b6c0cf;
+    font-size: 20rpx;
+    justify-content: space-between;
+}
+
+/* ---------------- 明细 ---------------- */
+.row {
+    display: flex;
+    align-items: center;
+    padding: 24rpx 0;
+    border-bottom: 2rpx solid #f1f4f8;
+    justify-content: space-between;
+}
+
+.row:last-child {
+    border-bottom: none;
+    padding-bottom: 8rpx;
+}
+
+.row.col {
+    align-items: flex-start;
+    flex-direction: column;
+}
+
+.k {
+    color: #8a94a6;
+    font-size: 25rpx;
+    flex-shrink: 0;
+}
+
+.v-wrap {
+    display: flex;
+    align-items: center;
+}
+
+.v {
+    color: #0f172a;
+    font-size: 26rpx;
+    font-weight: 500;
+}
+
+.copy {
+    margin-left: 14rpx;
+    padding: 2rpx 14rpx;
+    border-radius: 8rpx;
+    background: #eef2f7;
+    color: #64748b;
+    font-size: 20rpx;
+}
+
+.v.raw {
+    margin-top: 10rpx;
+    color: #475569;
+    font-size: 24rpx;
+    line-height: 1.5;
+}
+
+.foot-note {
+    display: block;
+    margin-top: 26rpx;
+    padding: 0 8rpx;
+    color: #a8b3c4;
+    font-size: 21rpx;
+    line-height: 1.7;
+}
+
+/* ---------------- 状态 ---------------- */
+.state {
+    display: flex;
+    min-height: 420rpx;
+    align-items: center;
+    padding: 40rpx;
+    border-radius: 28rpx;
+    background: #ffffff;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+}
+
+.state-icon {
+    color: #cbd5e1;
+    font-size: 52rpx;
+    font-weight: 700;
+}
+
+.state-title {
+    margin-top: 16rpx;
+    color: #0f172a;
+    font-size: 30rpx;
+    font-weight: 600;
+}
+
+.state-desc {
+    margin-top: 12rpx;
+    color: #94a3b8;
+    font-size: 24rpx;
+    line-height: 1.6;
+}
+
+.spinner {
+    width: 44rpx;
+    height: 44rpx;
+    margin-bottom: 20rpx;
+    border: 6rpx solid #e2e8f0;
+    border-top-color: #0f172a;
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+.btn {
+    margin-top: 28rpx;
+    padding: 0 48rpx;
+    border-radius: 999rpx;
+    background: #0f172a;
+    color: #ffffff;
+    font-size: 26rpx;
+    line-height: 76rpx;
+}

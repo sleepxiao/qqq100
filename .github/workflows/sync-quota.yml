@@ -1,0 +1,57 @@
+name: 每日抓取纳指100场外基金额度
+
+on:
+  schedule:
+    # UTC 03:40 = 北京时间 11:40。留 20 分钟余量，避开 GitHub 定时任务的排队延迟
+    - cron: "40 3 * * *"
+  workflow_dispatch: {}
+
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-quota
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: 抓取天天基金 + 支付宝 + 纳指100行情
+        run: python scripts/sync.py --emit-sql
+
+      - name: 生成发布产物
+        id: build
+        run: |
+          SNAPSHOT=$(ls -t scripts/out/snapshot-*.json | head -1)
+          echo "快照文件: $SNAPSHOT"
+          python scripts/emit_ci_artifacts.py "$SNAPSHOT" --out data --parts 3 | tee build.log
+
+      - name: 写入任务摘要
+        if: always()
+        run: |
+          {
+            echo "## 抓取结果"
+            echo '```'
+            cat build.log 2>/dev/null || echo "无产物，抓取步骤可能已失败"
+            echo '```'
+          } >> "$GITHUB_STEP_SUMMARY"
+
+      - name: 提交产物
+        run: |
+          git config user.name "quota-bot"
+          git config user.email "quota-bot@users.noreply.github.com"
+          git add -A data
+          if git diff --cached --quiet; then
+            echo "数据无变化，跳过提交"
+          else
+            git commit -m "data: $(date -u +%F) 额度快照"
+            git push
+          fi

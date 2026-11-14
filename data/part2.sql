@@ -1,0 +1,22 @@
+INSERT INTO fund_quota_daily (trade_date,fund_code,fund_name,company,share_class,currency,status,quota,quota_text,min_amount,nav,nav_date,raw_status,tt_status,tt_quota,ali_status,ali_quota,ali_min,ali_raw) VALUES
+('2026-11-14','012751','建信纳斯达克100指数(QDII)A美元现汇','建信基金','A','USD','suspended',NULL,'暂停',100.0,0.49,'2026-11-12','限大额','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','012753','建信纳斯达克100指数(QDII)C美元现汇','建信基金','C','USD','suspended',NULL,'暂停',100.0,0.4739,'2026-11-12','限大额','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','012870','易方达纳斯达克100ETF联接(QDII-LOF)C(人民币)','易方达基金','C','CNY','suspended',NULL,'暂停',10.0,4.1658,'2026-11-12','暂停申购(单日投资上限10元)','suspended',NULL,'suspended',NULL,10.0,'暂停销售'),
+('2026-11-14','012871','易方达纳斯达克100ETF联接(QDII-LOF)C(美元现汇)','易方达基金','C','USD','suspended',NULL,'暂停',10.0,0.6202,'2026-11-12','暂停申购(单日投资上限0.01元)','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','014978','华安纳斯达克100ETF联接(QDII)C','华安基金','C','CNY','suspended',NULL,'暂停',5.0,7.6087,'2026-11-12','暂停申购(单日投资上限5元)','suspended',NULL,'suspended',NULL,1.0,'暂停销售'),
+('2026-11-14','015299','华夏纳斯达克100ETF发起式联接(QDII)A','华夏基金','A','CNY','suspended',NULL,'暂停',10.0,1.9376,'2026-11-12','暂停申购(单日投资上限100元)','suspended',NULL,'suspended',NULL,10.0,'暂停销售'),
+('2026-11-14','015300','华夏纳斯达克100ETF发起式联接(QDII)C','华夏基金','C','CNY','suspended',NULL,'暂停',10.0,1.9112,'2026-11-12','暂停申购(单日投资上限100元)','suspended',NULL,'suspended',NULL,10.0,'暂停销售'),
+('2026-11-14','015518','华夏纳斯达克100ETF发起式联接(QDII)A美元现汇','华夏基金','A','USD','suspended',NULL,'暂停',1.0,0.2905,'2026-11-12','暂停申购','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','016055','博时纳斯达克100ETF发起式联接(QDII)A人民币','博时基金','A','CNY','suspended',NULL,'暂停',10.0,2.0228,'2026-11-12','暂停申购','suspended',NULL,'suspended',NULL,1.0,'暂停销售'),
+('2026-11-14','016056','博时纳斯达克100ETF发起式联接(QDII)A美元现汇','博时基金','A','USD','suspended',NULL,'暂停',100.0,0.3011,'2026-11-12','暂停申购','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','016057','博时纳斯达克100ETF发起式联接(QDII)C人民币','博时基金','C','CNY','suspended',NULL,'暂停',10.0,1.9952,'2026-11-12','暂停申购','suspended',NULL,'suspended',NULL,1.0,'暂停销售'),
+('2026-11-14','016058','博时纳斯达克100ETF发起式联接(QDII)C美元现汇','博时基金','C','USD','suspended',NULL,'暂停',100.0,0.297,'2026-11-12','暂停申购','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','016532','嘉实纳斯达克100ETF发起联接(QDII)A人民币','嘉实基金','A','CNY','suspended',NULL,'暂停',10.0,2.0755,'2026-11-12','暂停申购(单日投资上限100元)','suspended',NULL,'suspended',NULL,10.0,'暂停销售'),
+('2026-11-14','016533','嘉实纳斯达克100ETF发起联接(QDII)C人民币','嘉实基金','C','CNY','suspended',NULL,'暂停',10.0,2.051,'2026-11-12','暂停申购(单日投资上限100元)','suspended',NULL,'suspended',NULL,1.0,'暂停销售'),
+('2026-11-14','016534','嘉实纳斯达克100ETF发起联接(QDII)A美元现汇','嘉实基金','A','USD','suspended',NULL,'暂停',10.0,0.309,'2026-11-12','暂停申购(单日投资上限0.01元)','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','016535','嘉实纳斯达克100ETF发起联接(QDII)C美元现汇','嘉实基金','C','USD','suspended',NULL,'暂停',10.0,0.3053,'2026-11-12','暂停申购(单日投资上限0.01元)','suspended',NULL,'unavailable',NULL,NULL,'不可售'),
+('2026-11-14','018043','天弘纳斯达克100指数发起(QDII)A','天弘基金','A','CNY','suspended',NULL,'暂停',10.0,1.9377,'2026-11-12','暂停申购(单日投资上限100元)','suspended',NULL,'suspended',NULL,1.0,'暂停销售'),
+('2026-11-14','018044','天弘纳斯达克100指数发起(QDII)C','天弘基金','C','CNY','suspended',NULL,'暂停',10.0,1.9206,'2026-11-12','暂停申购(单日投资上限100元)','suspended',NULL,'suspended',NULL,1.0,'暂停销售'),
+('2026-11-14','018966','汇添富纳斯达克100ETF发起式联接(QDII)人民币A','汇添富基金','A','CNY','suspended',NULL,'暂停',10.0,1.5454,'2026-11-12','暂停申购(单日投资上限10元)','suspended',NULL,'suspended',NULL,10.0,'暂停销售'),
+('2026-11-14','018967','汇添富纳斯达克100ETF发起式联接(QDII)人民币C','汇添富基金','C','CNY','suspended',NULL,'暂停',10.0,1.5256,'2026-11-12','暂停申购(单日投资上限10元)','suspended',NULL,'suspended',NULL,10.0,'暂停销售')
+ON CONFLICT (trade_date,fund_code) DO UPDATE SET fund_name=EXCLUDED.fund_name,company=EXCLUDED.company,share_class=EXCLUDED.share_class,currency=EXCLUDED.currency,status=EXCLUDED.status,quota=EXCLUDED.quota,quota_text=EXCLUDED.quota_text,min_amount=EXCLUDED.min_amount,nav=EXCLUDED.nav,nav_date=EXCLUDED.nav_date,raw_status=EXCLUDED.raw_status,tt_status=EXCLUDED.tt_status,tt_quota=EXCLUDED.tt_quota,ali_status=EXCLUDED.ali_status,ali_quota=EXCLUDED.ali_quota,ali_min=EXCLUDED.ali_min,ali_raw=EXCLUDED.ali_raw,updated_at=now();
