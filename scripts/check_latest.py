@@ -40,12 +40,16 @@ def main():
 
     tt_buyable = sum(1 for r in rows if r.get("tt_status") in ("open", "limited"))
     ali_buyable = sum(1 for r in rows if r.get("ali_status") == "open")
+    quota_max = max(
+        (r.get("quota") or 0 for r in rows if r.get("tt_status") in ("open", "limited")),
+        default=0)
     index = payload.get("index") or {}
 
     print("trade_date=%s today=%s" % (trade_date, today))
     print("total=%d" % len(rows))
     print("tt_buyable=%d" % tt_buyable)
     print("ali_buyable=%d" % ali_buyable)
+    print("quota_max=%s" % (quota_max or "NULL"))
     print("generated_at=%s" % payload.get("generated_at"))
     if index:
         print("index=%s pct=%s" % (index.get("data_date"), index.get("pct")))
