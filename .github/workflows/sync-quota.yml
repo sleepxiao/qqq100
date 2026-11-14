@@ -24,6 +24,21 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: 预检数据源连通性
+        run: |
+          # 海外 runner 访问境内接口是这套方案唯一的未知数，先探一次写进日志，
+          # 失败也继续跑，让 sync.py 自己重试并给出真实结果。
+          for u in \
+            "https://fundmobapi.eastmoney.com/FundMApi/FundRateInfo.ashx?FCODE=000834&deviceid=1&plat=Android&product=EFund&version=6.2.8" \
+            "https://www.fund123.cn/matiaria?fundCode=000834" \
+            "https://push2his.eastmoney.com/api/qt/stock/kline/get?secid=100.NDX100&klt=101&fqt=1&lmt=5&fields1=f1,f2,f3&fields2=f51,f53"; do
+            code=$(curl -s -o /dev/null -w "%{http_code}" -m 15 -A "Mozilla/5.0" "$u" || echo "000")
+            echo "HTTP $code  ${u:0:45}"
+            if [ "$code" != "200" ]; then
+              echo "::warning::数据源响应 $code，sync.py 可能抓不到数据"
+            fi
+          done
+
       - name: 抓取天天基金 + 支付宝 + 纳指100行情
         run: python scripts/sync.py --emit-sql
 
