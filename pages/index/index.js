@@ -201,6 +201,8 @@ Page({
     if (this.data.refreshing) return;
     this.setData({ refreshing: true });
     try {
+      // 静态方案下快照会缓存，刷新前先失效，否则拿到的还是上一次的结果
+      if (cloud.invalidate) cloud.invalidate();
       await this.loadData(true);
       if (this.data.viewState === 'ready') {
         const tip = this.data.stale

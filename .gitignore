@@ -12,3 +12,6 @@ scripts/out/
 Thumbs.db
 __pycache__/
 *.pyc
+
+# 静态站点构建产物（由 data/ 生成，不入库）
+public/

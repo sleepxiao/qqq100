@@ -18,7 +18,13 @@ jobs:
     runs-on: ubuntu-latest
     timeout-minutes: 15
     env:
-      # 配齐这三项后，「写入微信云开发」步骤才会执行；缺省时自动跳过，CI 不会报红
+      # 静态方案（当前默认）：配齐这三项，产物会自动上传到静态托管
+      TCB_SECRET_ID: ${{ secrets.TCB_SECRET_ID }}
+      TCB_SECRET_KEY: ${{ secrets.TCB_SECRET_KEY }}
+      TCB_ENV_ID: ${{ secrets.TCB_ENV_ID }}
+      TCB_STATIC_BUCKET: ${{ secrets.TCB_STATIC_BUCKET }}
+      TCB_REGION: ap-shanghai
+      # 备用方案：配齐这三项后，才会额外执行「写入微信云开发数据库」那一步
       WX_APPID: ${{ secrets.WX_APPID }}
       WX_SECRET: ${{ secrets.WX_SECRET }}
       WX_CLOUD_ENV: ${{ secrets.WX_CLOUD_ENV }}
@@ -54,7 +60,16 @@ jobs:
           echo "快照文件: $SNAPSHOT"
           python scripts/emit_ci_artifacts.py "$SNAPSHOT" --out data --parts 3 | tee build.log
 
-      - name: 写入微信云开发数据库
+      - name: 生成静态接口并上传静态托管
+        id: static
+        run: |
+          # 没配密钥就只生成 public/，上传步骤自动跳过，CI 不会因此报红
+          if [ -n "$TCB_SECRET_ID" ]; then
+            pip install -q cos-python-sdk-v5
+          fi
+          python scripts/publish_static.py --source data/latest.json --out public --upload | tee static.log
+
+      - name: 写入微信云开发数据库（备用方案）
         if: env.WX_APPID != ''
         run: python scripts/push_to_wxcloud.py data/latest.json | tee push.log
 
@@ -66,6 +81,12 @@ jobs:
             echo '```'
             cat build.log 2>/dev/null || echo "无产物，抓取步骤可能已失败"
             echo '```'
+            if [ -f static.log ]; then
+              echo "## 静态接口"
+              echo '```'
+              cat static.log
+              echo '```'
+            fi
             if [ -f push.log ]; then
               echo "## 云开发写入"
               echo '```'
