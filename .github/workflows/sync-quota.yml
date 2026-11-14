@@ -17,6 +17,11 @@ jobs:
   sync:
     runs-on: ubuntu-latest
     timeout-minutes: 15
+    env:
+      # 配齐这三项后，「写入微信云开发」步骤才会执行；缺省时自动跳过，CI 不会报红
+      WX_APPID: ${{ secrets.WX_APPID }}
+      WX_SECRET: ${{ secrets.WX_SECRET }}
+      WX_CLOUD_ENV: ${{ secrets.WX_CLOUD_ENV }}
     steps:
       - uses: actions/checkout@v4
 
@@ -49,6 +54,10 @@ jobs:
           echo "快照文件: $SNAPSHOT"
           python scripts/emit_ci_artifacts.py "$SNAPSHOT" --out data --parts 3 | tee build.log
 
+      - name: 写入微信云开发数据库
+        if: env.WX_APPID != ''
+        run: python scripts/push_to_wxcloud.py data/latest.json | tee push.log
+
       - name: 写入任务摘要
         if: always()
         run: |
@@ -57,6 +66,12 @@ jobs:
             echo '```'
             cat build.log 2>/dev/null || echo "无产物，抓取步骤可能已失败"
             echo '```'
+            if [ -f push.log ]; then
+              echo "## 云开发写入"
+              echo '```'
+              cat push.log
+              echo '```'
+            fi
           } >> "$GITHUB_STEP_SUMMARY"
 
       - name: 提交产物

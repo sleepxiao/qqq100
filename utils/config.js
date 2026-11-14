@@ -1,8 +1,9 @@
-// 云服务公开配置（由 WorkBuddy Cloud Service 下发，可随小程序代码发布）
-// 说明：这里只包含 publishableKey 这类「应用标识」，不含任何服务端密钥。
+// 微信云开发配置
+//
+// envId 在小程序后台「云开发」控制台首页可以查到，形如 nasdaq100-1g2h3j4k。
+// 这个值会随小程序代码一起发布，属于公开标识，不含任何密钥。
 module.exports = {
-  endpoint: 'https://mp-api.app.workbuddy.host',
-  publishableKey: 'wbpk_1DqL7yie0h96oSIp5NAuAs_Wk6RjserZV2hLEGS0vq4FLIXkxS3txe6',
-  // 数据每天 12:00 由定时任务刷新
-  refreshHour: 12,
+  envId: 'REPLACE_WITH_YOUR_CLOUD_ENV_ID',
+  // 数据每天由 GitHub Actions 在北京时间 11:40 抓取并写入，这里只用于界面提示
+  refreshHour: 11,
 };
