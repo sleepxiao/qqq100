@@ -1,2 +1,0 @@
-INSERT INTO market_snapshot (index_code,data_date,index_name,close,change_amount,pct,prev_close,quote_at) VALUES ('NDX100','2026-11-18','纳斯达克100',27116.26,114.48,0.42,27001.78,'2026-11-18T21:00:00+00:00')
-ON CONFLICT (index_code,data_date) DO UPDATE SET index_name=EXCLUDED.index_name,close=EXCLUDED.close,change_amount=EXCLUDED.change_amount,pct=EXCLUDED.pct,prev_close=EXCLUDED.prev_close,quote_at=EXCLUDED.quote_at,updated_at=now();
